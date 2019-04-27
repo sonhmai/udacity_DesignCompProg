@@ -1,0 +1,5 @@
+venv/
+__*
+*env*
+*.log
+.idea
