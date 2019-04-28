@@ -47,8 +47,24 @@ def bsuccessors(state):
             # implement single person crossing first
             action = (person, person, direction)
             logging.debug('person {0}, action {1}'.format(person, action))
-        pass
+            # new state
+            t_new = t + person
+            there_new = frozenset([p for p in here if p is not person])
+            here_new = here.union(['light', person])
+            logging.debug('t_new {}, here_new {}, there_new {}'.format(t_new, here_new, there_new))
+            state_new = (here_new, there_new, t_new)
+            logging.debug('state_new={}'.format(state_new))
+            successors[state_new] = action
+
     return successors
+
+
+def get_travel_set(f):
+    """
+
+    :param f: frozenset
+    :return:
+    """
 
 
 if __name__ == '__main__':
@@ -57,11 +73,14 @@ if __name__ == '__main__':
     there0 = frozenset([])
     t0 = 3
     state = (here0, there0, t0)
+    print("Initial state:", state)
     pp.pprint(bsuccessors(state))
 
     # test from there to here
+    print("\nTest there to here:")
     there0 = frozenset([1, 2, 'light'])
     here0 = frozenset([])
     t0 = 3
     state = (here0, there0, t0)
-    print(bsuccessors(state))
+    print("Initial state:", state)
+    pp.pprint(bsuccessors(state))
